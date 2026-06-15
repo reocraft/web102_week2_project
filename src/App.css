@@ -1,0 +1,110 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.card-count {
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.flip-hint {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* Card flip */
+.card-scene {
+  perspective: 1000px;
+  width: 600px;
+  max-width: calc(100vw - 2rem);
+  height: 350px;
+  cursor: pointer;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.card-front {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.card-back {
+  background: linear-gradient(135deg, #10b981, #059669);
+  transform: rotateY(180deg);
+}
+
+.next-btn {
+  font-size: 1rem;
+  padding: 0.6rem 2rem;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: background 0.2s, color 0.2s;
+}
+
+.next-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.next-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

@@ -14,21 +14,42 @@
 .description {
   font-size: 1.1rem;
   color: var(--text);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
 }
 
 .card-count {
   font-size: 0.95rem;
   color: var(--accent);
   font-weight: 600;
-  margin: 0;
+}
+
+.streak-stat {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mastered-count {
+  font-size: 0.95rem;
+  color: #10b981;
+  font-weight: 600;
 }
 
 .app-main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  width: 100%;
 }
 
 .flip-hint {
@@ -38,6 +59,15 @@
   margin: 0;
 }
 
+/* Card container */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
 /* Card flip */
 .card-scene {
   perspective: 1000px;
@@ -45,6 +75,15 @@
   max-width: calc(100vw - 2rem);
   height: 350px;
   cursor: pointer;
+  transition: filter 0.3s;
+}
+
+.card-scene.scene-correct {
+  filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.55));
+}
+
+.card-scene.scene-incorrect {
+  filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.55));
 }
 
 .card {
@@ -87,24 +126,189 @@
   transform: rotateY(180deg);
 }
 
-.next-btn {
+/* Guess form */
+.guess-form {
+  display: flex;
+  gap: 0.5rem;
+  width: 600px;
+  max-width: calc(100vw - 2rem);
+}
+
+.guess-input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  font-family: var(--sans);
   font-size: 1rem;
-  padding: 0.6rem 2rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.guess-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.guess-input.input-correct {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.guess-input.input-incorrect {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.guess-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Feedback message */
+.feedback-msg {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.feedback-correct {
+  color: #10b981;
+}
+
+.feedback-incorrect {
+  color: #ef4444;
+}
+
+/* Navigation row */
+.nav-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.nav-btn {
+  font-size: 1rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   border: 2px solid var(--accent);
   background: var(--accent-bg);
   color: var(--accent);
   cursor: pointer;
   font-family: var(--sans);
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
 }
 
-.next-btn:hover {
+.nav-btn:hover:not(:disabled) {
   background: var(--accent);
   color: white;
 }
 
-.next-btn:focus-visible {
+.nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: var(--border);
+  color: var(--text);
+  background: transparent;
+}
+
+.nav-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.shuffle-btn {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.shuffle-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Mark as mastered button */
+.master-btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: background 0.2s, color 0.2s;
+}
+
+.master-btn:hover {
+  background: #10b981;
+  color: white;
+}
+
+/* All mastered screen */
+.all-mastered {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #10b981;
+  margin-bottom: 1rem;
+}
+
+/* Mastered cards list */
+.mastered-section {
+  margin-top: 0.5rem;
+  text-align: left;
+  width: 600px;
+  max-width: calc(100vw - 2rem);
+  color: var(--text);
+}
+
+.mastered-section summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #10b981;
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+  user-select: none;
+}
+
+.mastered-section ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.5rem;
+}
+
+.mastered-section li {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: var(--text);
 }
